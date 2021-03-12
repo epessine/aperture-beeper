@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+
+  #Node
+  app:
+    container_name: app
+    build: '.'
+    volumes:
+      - ./:/node-app
+      - ./node_modules:/node-app/node_modules
+    environment:
+      NODE_ENV: development
+    depends_on:
+      - mongodb
+    ports:
+      - '5000:5000'
+    networks:
+        - aperture-beeper
+
+  #Mongodb
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./.docker/mongodb:/data/db
+    networks:
+        - aperture-beeper
+  
+  #mongo-express
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    ports:
+      - 88:8081
+    environment:
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: 27017
+    links:
+      - mongodb
+    networks:
+      - aperture-beeper
+
+networks:
+  aperture-beeper:
+    driver: bridge

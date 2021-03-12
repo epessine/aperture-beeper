@@ -1,0 +1,9 @@
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+.loading {
+  display: none;
+}
