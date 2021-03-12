@@ -19,4 +19,15 @@ router.post('/beep', (req, res) => {
     });
 });
 
+router.get('/beep', (req, res) => {
+  Beep
+    .find()
+    .then(beeps => {
+      res.json(beeps);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
 module.exports = router;
